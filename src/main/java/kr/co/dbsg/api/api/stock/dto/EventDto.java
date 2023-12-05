@@ -2,76 +2,144 @@ package kr.co.dbsg.api.api.stock.dto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
+import kr.co.dbsg.api.api.stock.domain.Shareholders;
+import kr.co.dbsg.api.api.stock.domain.Underwriters;
+import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
+import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
+import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
 
 public class EventDto {
     public record Response(
-    int id,
+    long id,
     String type,
-    CorporationOverview corporationOverview,
-    EventInformation eventInformation,
-    FinancialInformation financialInformation
+    CorporationOverviewDto corporationOverviewDto,
+    EventInformationDto eventInformationDto,
+    FinancialInformationDto financialInformationDto
     ) {
     }
 
     /* 기업 개요 */
-    public record CorporationOverview(String name, String code, String type, String marketType, Sector sector) {
+    public record CorporationOverviewDto(String name, String code, String corporationType, String marketType, SectorDto sectorDto) {
+        public static CorporationOverviewDto from(CorporationOverview corporationOverview) {
+            return new CorporationOverviewDto(
+                    corporationOverview.getName(),
+                    corporationOverview.getCode(),
+                    corporationOverview.getCorporationType().name(),
+                    corporationOverview.getMarketType().name(),
+                    new SectorDto(corporationOverview.getSector().getId(), corporationOverview.getSector().getName())
+            );
+        }
     }
 
-    public record Sector(String id, String name) {
+    public record SectorDto(String id, String name) {
     }
 
     /* 이벤트 정보 */
-    public record EventInformation(
+    public record EventInformationDto(
         String status,
-        EventSchedule schedule,
-        EventPrice price,
-        List<EventUnderwriters> underwriters,
-        List<Shareholders> shareholders
+        EventScheduleDto schedule,
+        EventPriceDto price,
+        List<EventUnderwriterDto> underwriters,
+        List<ShareholderDto> shareholders
     ) {
+        public static EventInformationDto from(
+                EventStatus eventStatus,
+                EventSchedule eventSchedule,
+                EventPrice eventPrice,
+                Underwriters underwriters,
+                Shareholders shareholders
+        ) {
+            return new EventInformationDto(
+                    eventStatus.name(),
+                    EventScheduleDto.from(eventSchedule),
+                    EventPriceDto.from(eventPrice),
+                    EventUnderwriterDto.from(underwriters),
+                    ShareholderDto.from(shareholders)
+            );
+        }
     }
 
-    public record EventSchedule(
+    public record EventScheduleDto(
             LocalDate forecastStart,
             LocalDate forecastEnd,
             LocalDate refund,
             LocalDate debut,
             LocalDate eventCancel  // TODO 존재하지 않을 수 있음
     ) {
+        public static EventScheduleDto from(EventSchedule schedule) {
+            return new EventScheduleDto(
+                    schedule.getForecastStart(),
+                    schedule.getForecastEnd(),
+                    schedule.getRefund(),
+                    schedule.getDebut(),
+                    schedule.getEventCancelDate()
+            );
+        }
     }
 
-    public record EventPrice(  // TODO 아래 값 중 일부만 존재 할 수 있음 (이벤트 타입에 따라서)
-            int bandLow,
-            int bandHigh,
-            int fixed
+    public record EventPriceDto(  // TODO 아래 값 중 일부만 존재 할 수 있음 (이벤트 타입에 따라서)
+                                  int bandLow,
+                                  int bandHigh,
+                                  int fixed
     ) {
+        public static EventPriceDto from(EventPrice eventPrice) {
+            return new EventPriceDto(
+                    eventPrice.bandLow(),
+                    eventPrice.bandHigh(),
+                    eventPrice.fixed()
+            );
+        }
     }
 
-    public record EventUnderwriters(
+    public record EventUnderwriterDto(
             int id,
             String name,
             long amount,
             long limit,
             String note
     ) {
+        public static List<EventUnderwriterDto> from(Underwriters underwriters) {
+            return underwriters.getUnderwriterList()
+                    .stream()
+                    .map(underwriter -> new EventUnderwriterDto(
+                            underwriter.getId(),
+                            underwriter.getName(),
+                            underwriter.getAmount(),
+                            underwriter.getLimit(),
+                            underwriter.getNote()
+                    ))
+                    .toList();
+        }
     }
 
-    public record Shareholders(
+    public record ShareholderDto(
             String name,
             long amount
     ) {
+        public static List<ShareholderDto> from(Shareholders shareholders) {
+            final Map<String, Long> shareholdersMap = shareholders.getShareholderMap();
+
+            return shareholdersMap.entrySet()
+                    .stream()
+                    .map(entry -> new ShareholderDto(entry.getKey(), entry.getValue()))
+                    .toList();
+        }
     }
 
     /* 재정 정보 */
-    public record FinancialInformation(
+    public record FinancialInformationDto(
             long revenue,
             long profit,
-            long captial
+            long capital
     ) {
     }
 
     /* 거래 정보 */
     // TODO
-    public record TradingInformation(
+    public record TradingInformationDto(
             String firstDay,
             String trend
     ) {

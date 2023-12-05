@@ -8,5 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Underwriters {
-    private final List<Underwriter> underwriters;
+    private final List<Underwriter> underwriterList;
+
+    // TODO add and remove logic, 별도로 할당해주지 않으면 기본적으로 빈 리스트를 가지고 있도록 지정
 }

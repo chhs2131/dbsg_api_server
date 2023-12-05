@@ -10,6 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Event {
     private final long id;
+    private final String type;
     private final EventStatus eventStatus;
     private final EventSchedule eventSchedule;
     private final EventPrice eventPrice;

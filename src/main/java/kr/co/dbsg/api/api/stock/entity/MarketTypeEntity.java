@@ -1,10 +1,11 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import kr.co.dbsg.api.api.stock.domain.type.MarketType;
 
 @Entity
-@Table(name = "underwriter_type")
-public class UnderwriterType {
+@Table(name = "market_type")
+public class MarketTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -12,4 +13,8 @@ public class UnderwriterType {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public MarketType toMarketType() {
+        return MarketType.ETC;  //TODO MarketType ConvertCode 작성
+    }
 }

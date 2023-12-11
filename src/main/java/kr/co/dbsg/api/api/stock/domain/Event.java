@@ -11,6 +11,7 @@ import lombok.Getter;
 public class Event {
     private final long id;
     private final String type;
+    private final CorporationOverview corporationOverview;
     private final EventStatus eventStatus;
     private final EventSchedule eventSchedule;
     private final EventPrice eventPrice;

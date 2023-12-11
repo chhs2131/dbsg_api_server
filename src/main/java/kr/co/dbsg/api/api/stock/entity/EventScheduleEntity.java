@@ -2,17 +2,20 @@ package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
+import lombok.ToString;
 
 @Entity
 @Table(name = "event_schedule")
-public class EventSchedule {
+@ToString(exclude = "event")
+public class EventScheduleEntity {
     @Id
     @Column(name = "event_id", nullable = false)
     private Integer id;
 
     @MapsId
     @OneToOne
-    private Event event;
+    private EventEntity event;
 
     @Column(name = "forecast_start_date")
     private LocalDate forecastStartDate;
@@ -31,4 +34,14 @@ public class EventSchedule {
 
     @Column(name = "debut_date")
     private LocalDate debutDate;
+
+    public EventSchedule toEventSchedule() {
+        return new EventSchedule(
+                forecastStartDate,
+                forecastEndDate,
+                refundDate,
+                debutDate,
+                null
+        );
+    }
 }

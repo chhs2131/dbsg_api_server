@@ -1,10 +1,13 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import kr.co.dbsg.api.api.stock.domain.type.Underwriter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "event_size_underwriter")
-public class EventSizeUnderwriter {
+@ToString(exclude = "eventSize")
+public class EventSizeUnderwriterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -12,11 +15,11 @@ public class EventSizeUnderwriter {
 
     @ManyToOne
     @JoinColumn(name = "event_size_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private EventSize eventSize;
+    private EventSizeEntity eventSize;
 
     @ManyToOne
     @JoinColumn(name = "underwriter_type_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private UnderwriterType underwriterTypeId;
+    private UnderwriterTypeEntity underwriterTypeId;
 
     @Column(name = "allocated_stock_min")
     private Integer allocatedStockMin;
@@ -29,4 +32,14 @@ public class EventSizeUnderwriter {
 
     @Column(name = "allocated_target_type")
     private String allocatedTargetType;
+
+    public Underwriter toUnderwriter() {
+        return new Underwriter(
+                id,
+                underwriterTypeId.getName(),
+                allocatedStockFixed,
+                0,
+                ""
+        );
+    }
 }

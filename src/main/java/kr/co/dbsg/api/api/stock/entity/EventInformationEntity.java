@@ -1,17 +1,20 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
+import lombok.ToString;
 
 @Entity
 @Table(name = "event_information")
-public class EventInformation {
+@ToString(exclude = "event")
+public class EventInformationEntity {
     @Id
     @Column(name = "event_id", nullable = false)
     private Integer id;
 
     @MapsId
     @OneToOne
-    private Event event;
+    private EventEntity event;
 
     @Column(name = "issuance_reason")
     private String issuanceReason;
@@ -42,4 +45,12 @@ public class EventInformation {
 
     @Column(name = "minimum_subscription")
     private Integer minimumSubscription;
+
+    public EventPrice toEventPrice() {
+        return new EventPrice(
+                hopePriceLow != null ? hopePriceHigh : 0,
+                hopePriceHigh != null ? hopePriceHigh : 0,
+                fixedPrice != null ? fixedPrice : 0
+        );
+    }
 }

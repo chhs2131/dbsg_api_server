@@ -1,10 +1,12 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
-@Table(name = "company_type")
-public class CompanyType {
+@Table(name = "underwriter_type")
+@Getter
+public class UnderwriterTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

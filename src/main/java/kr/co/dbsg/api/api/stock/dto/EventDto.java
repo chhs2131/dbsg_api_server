@@ -3,22 +3,39 @@ package kr.co.dbsg.api.api.stock.dto;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
+import kr.co.dbsg.api.api.stock.domain.Event;
 import kr.co.dbsg.api.api.stock.domain.Shareholders;
 import kr.co.dbsg.api.api.stock.domain.Underwriters;
 import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
 import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
 import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
+import lombok.Builder;
 
 public class EventDto {
-    public record Response(
+    @Builder
+    public record EventResponse(
     long id,
     String type,
     CorporationOverviewDto corporationOverviewDto,
     EventInformationDto eventInformationDto,
     FinancialInformationDto financialInformationDto
     ) {
+        public static EventResponse from(Event event) {
+            return EventResponse.builder()
+                    .id(event.getId())
+                    .type(event.getType())
+                    .corporationOverviewDto(CorporationOverviewDto.from(event.getCorporationOverview()))
+                    .eventInformationDto(EventInformationDto.from(
+                            event.getEventStatus(),
+                            event.getEventSchedule(),
+                            event.getEventPrice(),
+                            event.getUnderwriters(),
+                            event.getShareholders()
+                    ))
+                    .financialInformationDto(null)
+                    .build();
+        }
     }
 
     /* 기업 개요 */
@@ -57,7 +74,7 @@ public class EventDto {
                     EventScheduleDto.from(eventSchedule),
                     EventPriceDto.from(eventPrice),
                     EventUnderwriterDto.from(underwriters),
-                    ShareholderDto.from(shareholders)
+                    null
             );
         }
     }

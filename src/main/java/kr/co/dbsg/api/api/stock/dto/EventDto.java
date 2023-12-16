@@ -17,23 +17,23 @@ public class EventDto {
     public record EventResponse(
     long id,
     String type,
-    CorporationOverviewDto corporationOverviewDto,
-    EventInformationDto eventInformationDto,
-    FinancialInformationDto financialInformationDto
+    CorporationOverviewDto corporationOverview,
+    EventInformationDto eventInformation,
+    FinancialInformationDto financialInformation
     ) {
         public static EventResponse from(Event event) {
             return EventResponse.builder()
                     .id(event.getId())
                     .type(event.getType())
-                    .corporationOverviewDto(CorporationOverviewDto.from(event.getCorporationOverview()))
-                    .eventInformationDto(EventInformationDto.from(
+                    .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))
+                    .eventInformation(EventInformationDto.from(
                             event.getEventStatus(),
                             event.getEventSchedule(),
                             event.getEventPrice(),
                             event.getUnderwriters(),
                             event.getShareholders()
                     ))
-                    .financialInformationDto(null)
+                    .financialInformation(null)
                     .build();
         }
     }

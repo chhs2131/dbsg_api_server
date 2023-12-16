@@ -27,12 +27,11 @@ public class StockInformationEntity {
     @JoinColumn(name = "company_type_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private CompanyTypeEntity companyType;
 
-    @Column(name = "sale")
-    private Integer sale;
+    @Column(name = "revenue")
+    private Integer revenue;
 
     @Column(name = "profit")
     private Integer profit;
-
-    @Column(name = "volume")
-    private Integer volume;
+    @Column(name = "capital")
+    private Integer capital;
 }

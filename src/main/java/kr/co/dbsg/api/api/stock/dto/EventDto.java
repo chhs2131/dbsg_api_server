@@ -15,11 +15,11 @@ import lombok.Builder;
 public class EventDto {
     @Builder
     public record EventResponse(
-    long id,
-    String type,
-    CorporationOverviewDto corporationOverview,
-    EventInformationDto eventInformation,
-    FinancialInformationDto financialInformation
+        long id,
+        String type,
+        CorporationOverviewDto corporationOverview,
+        EventInformationDto eventInformation,
+        FinancialInformationDto financialInformation
     ) {
         public static EventResponse from(Event event) {
             return EventResponse.builder()

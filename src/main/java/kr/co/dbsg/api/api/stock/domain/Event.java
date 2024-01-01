@@ -1,5 +1,6 @@
 package kr.co.dbsg.api.api.stock.domain;
 
+import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
 import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
 import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
@@ -17,4 +18,6 @@ public class Event {
     private final EventPrice eventPrice;
     private final Underwriters underwriters;
     private final Shareholders shareholders;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 }

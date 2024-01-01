@@ -1,6 +1,7 @@
 package kr.co.dbsg.api.api.stock.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
@@ -19,22 +20,26 @@ public class EventDto {
         String type,
         CorporationOverviewDto corporationOverview,
         EventInformationDto eventInformation,
-        FinancialInformationDto financialInformation
+        FinancialInformationDto financialInformation,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
     ) {
         public static EventResponse from(Event event) {
             return EventResponse.builder()
-                    .id(event.getId())
-                    .type(event.getType())
-                    .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))
-                    .eventInformation(EventInformationDto.from(
-                            event.getEventStatus(),
-                            event.getEventSchedule(),
-                            event.getEventPrice(),
-                            event.getUnderwriters(),
-                            event.getShareholders()
-                    ))
-                    .financialInformation(null)
-                    .build();
+                .id(event.getId())
+                .type(event.getType())
+                .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))
+                .eventInformation(EventInformationDto.from(
+                    event.getEventStatus(),
+                    event.getEventSchedule(),
+                    event.getEventPrice(),
+                    event.getUnderwriters(),
+                    event.getShareholders()
+                ))
+                .financialInformation(null)
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
+                .build();
         }
     }
 

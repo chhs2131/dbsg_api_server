@@ -1,6 +1,7 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.stock.domain.Event;
 import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
 import lombok.ToString;
@@ -33,6 +34,12 @@ public class EventEntity {
     @OneToOne(mappedBy = "event")
     private EventSizeEntity eventSize;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     public Event toEvent() {
         return new Event(
                 id.longValue(),
@@ -42,7 +49,9 @@ public class EventEntity {
                 eventSchedule.toEventSchedule(),
                 eventInformation.toEventPrice(),
                 eventSize.toUnderwriters(),
-                null
+                null,
+                createdAt,
+                updatedAt
         );
     }
 }

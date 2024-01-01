@@ -1,5 +1,6 @@
 package kr.co.dbsg.api.api.stock.service;
 
+import java.time.LocalDate;
 import kr.co.dbsg.api.api.stock.domain.Event;
 import kr.co.dbsg.api.api.stock.entity.EventEntity;
 import kr.co.dbsg.api.api.stock.repository.EventRepository;
@@ -15,5 +16,9 @@ public class EventService {
 
     public Page<Event> getEvents(Pageable pageable) {
         return eventRepository.findAll(pageable).map(EventEntity::toEvent);
+    }
+
+    public Page<Event> getEvents(Pageable pageable, LocalDate startDate, LocalDate endDate) {
+        return eventRepository.findAllByCreatedAtBetween(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay(), pageable).map(EventEntity::toEvent);
     }
 }

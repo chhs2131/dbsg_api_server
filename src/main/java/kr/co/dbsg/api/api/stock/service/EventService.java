@@ -14,11 +14,13 @@ import org.springframework.stereotype.Service;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public Page<Event> getEvents(Pageable pageable) {
-        return eventRepository.findAll(pageable).map(EventEntity::toEvent);
-    }
-
     public Page<Event> getEvents(Pageable pageable, LocalDate startDate, LocalDate endDate) {
         return eventRepository.findAllByCreatedAtBetween(startDate.atStartOfDay(), endDate.plusDays(1).atStartOfDay(), pageable).map(EventEntity::toEvent);
+    }
+
+    public Event getEvent(int id) {
+        return eventRepository.findById(id)
+            .orElseThrow(IllegalArgumentException::new)
+            .toEvent();
     }
 }

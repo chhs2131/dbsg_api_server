@@ -56,7 +56,6 @@ public class NaverNewsRepository implements NewsRepository {
 
             try {
                 List<NaverArticle> newsEntities = objectMapper.readValue(responseBody, NaverNews.class).items;
-                System.out.println(newsEntities);
 
                 return newsEntities.stream()
                         .map(naverNews -> NewsEntity.builder()

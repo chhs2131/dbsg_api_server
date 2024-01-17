@@ -19,7 +19,7 @@ public class MemoryNewsRepository implements NewsRepository {
     }
 
     @Override
-    public List<NewsEntity> findAll() {
+    public List<NewsEntity> findAllByTitle(String title) {
         return news;
     }
 }

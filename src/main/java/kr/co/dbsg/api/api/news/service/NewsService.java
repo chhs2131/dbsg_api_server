@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class NewsService {
     private final NewsRepository newsRepository;
 
-    public List<NewsResponse> getNews() {
-        return newsRepository.findAll()
+    public List<NewsResponse> getNews(String title) {
+        return newsRepository.findAllByTitle(title)
             .stream()
             .map(NewsResponse::from)
             .toList();

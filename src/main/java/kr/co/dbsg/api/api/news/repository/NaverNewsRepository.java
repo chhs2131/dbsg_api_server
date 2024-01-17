@@ -26,7 +26,7 @@ public class NaverNewsRepository implements NewsRepository {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public List<NewsEntity> findAll() {
+    public List<NewsEntity> findAllByTitle(String title) {
         String baseUrl = naverApiProperty.baseUrl();
         String clientId = naverApiProperty.clientId();
         String clientSecret = naverApiProperty.clientSecret();
@@ -37,7 +37,7 @@ public class NaverNewsRepository implements NewsRepository {
         headers.set("X-Naver-Client-Secret", clientSecret);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl + "/v1/search/news.json")
-                .queryParam("query", "IPO")
+                .queryParam("query", title)
                 .queryParam("display", 10)
                 .queryParam("start", 1)
                 .queryParam("sort", "sim");

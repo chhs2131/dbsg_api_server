@@ -5,5 +5,5 @@ import java.util.List;
 import kr.co.dbsg.api.api.news.entity.NewsEntity;
 
 public interface NewsRepository {
-    List<NewsEntity> findAll();
+    List<NewsEntity> findAllByTitle(String title);
 }

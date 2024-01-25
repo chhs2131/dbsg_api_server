@@ -39,6 +39,8 @@ public class EventScheduleEntity {
         return new EventSchedule(
                 forecastStartDate,
                 forecastEndDate,
+                subscriptionStartDate,
+                subscriptionEndDate,
                 refundDate,
                 debutDate,
                 null

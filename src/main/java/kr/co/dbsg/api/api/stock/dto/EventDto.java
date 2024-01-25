@@ -87,6 +87,8 @@ public class EventDto {
     public record EventScheduleDto(
             LocalDate forecastStart,
             LocalDate forecastEnd,
+            LocalDate subscriptionStart,
+            LocalDate subscriptionEnd,
             LocalDate refund,
             LocalDate debut,
             LocalDate eventCancel  // TODO 존재하지 않을 수 있음
@@ -95,6 +97,8 @@ public class EventDto {
             return new EventScheduleDto(
                     schedule.getForecastStart(),
                     schedule.getForecastEnd(),
+                    schedule.getSubscriptionStartDate(),
+                    schedule.getSubscriptionEndDate(),
                     schedule.getRefund(),
                     schedule.getDebut(),
                     schedule.getEventCancelDate()

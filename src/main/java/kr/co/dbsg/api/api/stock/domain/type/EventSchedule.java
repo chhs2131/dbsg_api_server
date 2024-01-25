@@ -9,6 +9,8 @@ import lombok.Getter;
 public class EventSchedule {
     private final LocalDate forecastStart;
     private final LocalDate forecastEnd;
+    private final LocalDate subscriptionStartDate;
+    private final LocalDate subscriptionEndDate;
     private final LocalDate refund;
     private final LocalDate debut;
     private final LocalDate eventCancelDate;

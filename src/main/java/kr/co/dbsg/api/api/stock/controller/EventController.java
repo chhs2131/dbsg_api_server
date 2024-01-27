@@ -39,7 +39,7 @@ public class EventController {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         return ResponseEntity.ok(
-                eventService.getEvents(pageable, startDate, endDate)
+                eventService.getEvents(startDate, endDate, pageable)
                 .map(EventResponse::from)
         );
     }

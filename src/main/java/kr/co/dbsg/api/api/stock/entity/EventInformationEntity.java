@@ -2,11 +2,17 @@ package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
 import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "event_information")
 @ToString(exclude = "event")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventInformationEntity {
     @Id
     @Column(name = "event_id", nullable = false)

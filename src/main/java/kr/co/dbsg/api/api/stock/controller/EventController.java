@@ -26,17 +26,13 @@ public class EventController {
     public ResponseEntity<Page<EventResponse>> getEvents(
         @RequestParam(name = "page", defaultValue = "0", required = false) int page,
         @RequestParam(name = "size", defaultValue = "10", required = false) int size,
-        @RequestParam(name = "targetStatus", defaultValue = "ALL", required = false) String targetStatus,
         @RequestParam(name = "startDate", defaultValue = "#{T(java.time.LocalDateTime).now().minusDays(7)}", required = false) LocalDate startDate,
-        @RequestParam(name = "endDate", defaultValue = "#{T(java.time.LocalDateTime).now()}", required = false) LocalDate endDate,
-        @RequestParam(name = "item", defaultValue = "createdAt", required = false) String item,
-        @RequestParam(name = "orderBy", defaultValue = "DESC", required = false) String orderBy
+        @RequestParam(name = "endDate", defaultValue = "#{T(java.time.LocalDateTime).now()}", required = false) LocalDate endDate
     ) {
         // TODO validation
 
         // logic
-        Sort sort = Sort.by(Direction.fromString(orderBy), item);
-        Pageable pageable = PageRequest.of(page, size, sort);
+        Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok(
                 eventService.getEvents(startDate, endDate, pageable)

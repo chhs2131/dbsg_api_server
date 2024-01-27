@@ -1,14 +1,25 @@
 package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.stock.domain.Event;
 import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "event")
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +33,7 @@ public class EventEntity {
     @Column(name = "event_type", nullable = false)
     private String eventType;
 
+    @Deprecated(since = "2024-01-26")
     @Column(name = "status", nullable = false)
     private String status;
 
@@ -53,5 +65,28 @@ public class EventEntity {
                 createdAt,
                 updatedAt
         );
+    }
+
+    public boolean isScheduleInRange(LocalDate startDate, LocalDate endDate) {
+        EventScheduleEntity schedule = eventSchedule;
+
+        //TODO EventSchedule 에게 물어보기
+        for (LocalDate now=startDate; now.isBefore(endDate.plusDays(1L)); now = now.plusDays(1L)) {
+            if (now.isAfter(schedule.getForecastStartDate().minusDays(1L)) && now.isBefore(
+                schedule.getForecastEndDate().plusDays(1L))) {
+                return true;
+            }
+            if (now.isAfter(schedule.getSubscriptionStartDate().minusDays(1L)) && now.isBefore(
+                schedule.getSubscriptionEndDate().plusDays(1L))) {
+                return true;
+            }
+            if (now.isEqual(schedule.getRefundDate())) {
+                return true;
+            }
+            if (now.isEqual(schedule.getDebutDate())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

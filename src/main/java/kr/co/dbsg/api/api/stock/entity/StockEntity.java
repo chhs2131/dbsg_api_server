@@ -2,12 +2,19 @@ package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
 import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
-import kr.co.dbsg.api.api.stock.domain.type.CorporationType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "stock")
 @ToString
+@Builder
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StockEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

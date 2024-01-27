@@ -2,14 +2,19 @@ package kr.co.dbsg.api.api.stock.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 import kr.co.dbsg.api.api.stock.domain.Underwriters;
 import kr.co.dbsg.api.api.stock.domain.type.Underwriter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "event_size")
 @ToString(exclude = "event")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventSizeEntity {
     @Id
     @Column(name = "event_id", nullable = false)
@@ -37,7 +42,7 @@ public class EventSizeEntity {
     public Underwriters toUnderwriters() {
         List<Underwriter> underwriters = eventSizeUnderwriter.stream()
                 .map(EventSizeUnderwriterEntity::toUnderwriter)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Underwriters(underwriters);
     }

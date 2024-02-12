@@ -60,7 +60,7 @@ public class NaverNewsRepository implements NewsRepository {
                 return newsEntities.stream()
                         .map(naverNews -> NewsEntity.builder()
                                 .id(0L)
-                                .title(naverNews.title.replace("<b>", "").replace("</b>", ""))
+                                .title(removeHtmlEntity(naverNews.title))
                                 .url(naverNews.originallink)
                                 .desc(naverNews.description)
                                 .publishedAt(toLocalDateTime(naverNews.pubDate))
@@ -78,6 +78,14 @@ public class NaverNewsRepository implements NewsRepository {
     private LocalDateTime toLocalDateTime(String naverTimeFormat) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
         return LocalDateTime.parse(naverTimeFormat, formatter);
+    }
+
+    private String removeHtmlEntity(String str) {
+        // TODO HttpEntity remove utility 추가 필요 및 해당 로직을 도메인 로직으로 삼을 것
+        return str.replace("<b>", "")
+            .replace("</b>", "")
+            .replace("&amp;", "&")
+            .replace("&quot;", "\"");
     }
 
     @Data

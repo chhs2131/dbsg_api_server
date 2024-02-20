@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.dbsg.api.api.news.entity.NewsEntity;
 import kr.co.dbsg.api.global.config.properties.NaverApiProperty;
+import kr.co.dbsg.api.global.util.HtmlCharEntityConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -81,11 +82,8 @@ public class NaverNewsRepository implements NewsRepository {
     }
 
     private String removeHtmlEntity(String str) {
-        // TODO HttpEntity remove utility 추가 필요 및 해당 로직을 도메인 로직으로 삼을 것
-        return str.replace("<b>", "")
-            .replace("</b>", "")
-            .replace("&amp;", "&")
-            .replace("&quot;", "\"");
+        // TODO 해당 로직을 도메인 로직으로 삼을 것
+        return HtmlCharEntityConverter.unescape(str);
     }
 
     @Data

@@ -54,9 +54,9 @@ public class EventInformationEntity {
 
     public EventPrice toEventPrice() {
         return new EventPrice(
-                hopePriceLow != null ? hopePriceHigh : 0,
-                hopePriceHigh != null ? hopePriceHigh : 0,
-                fixedPrice != null ? fixedPrice : 0
+                hopePriceLow,
+                hopePriceHigh,
+                fixedPrice
         );
     }
 }

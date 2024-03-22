@@ -107,9 +107,9 @@ public class EventResonse {
     }
 
     public record EventPriceDto(
-                                  int bandLow,
-                                  int bandHigh,
-                                  int fixed
+                                  Integer bandLow,
+                                  Integer bandHigh,
+                                  Integer fixed
     ) {
         public static EventPriceDto from(EventPrice eventPrice) {
             return new EventPriceDto(

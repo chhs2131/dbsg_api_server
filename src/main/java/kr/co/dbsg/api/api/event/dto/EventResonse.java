@@ -15,7 +15,7 @@ import lombok.Builder;
 
 public class EventResonse {
     @Builder
-    public record resonse(
+    public record response(
         long id,
         String type,
         CorporationOverviewDto corporationOverview,
@@ -24,8 +24,8 @@ public class EventResonse {
         LocalDateTime createdAt,
         LocalDateTime updatedAt
     ) {
-        public static resonse from(Event event) {
-            return resonse.builder()
+        public static response from(Event event) {
+            return response.builder()
                 .id(event.getId())
                 .type(event.getType())
                 .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))
@@ -91,7 +91,7 @@ public class EventResonse {
             LocalDate subscriptionEnd,
             LocalDate refund,
             LocalDate debut,
-            LocalDate eventCancel  // TODO 존재하지 않을 수 있음
+            LocalDate eventCancel
     ) {
         public static EventScheduleDto from(EventSchedule schedule) {
             return new EventScheduleDto(
@@ -106,7 +106,7 @@ public class EventResonse {
         }
     }
 
-    public record EventPriceDto(  // TODO 아래 값 중 일부만 존재 할 수 있음 (이벤트 타입에 따라서)
+    public record EventPriceDto(
                                   int bandLow,
                                   int bandHigh,
                                   int fixed

@@ -1,7 +1,7 @@
-package kr.co.dbsg.api.api.stock.domain;
+package kr.co.dbsg.api.api.event.domain;
 
 import java.util.List;
-import kr.co.dbsg.api.api.stock.domain.type.Underwriter;
+import kr.co.dbsg.api.api.event.domain.type.Underwriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

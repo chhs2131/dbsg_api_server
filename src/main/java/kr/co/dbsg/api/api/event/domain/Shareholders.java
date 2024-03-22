@@ -1,4 +1,4 @@
-package kr.co.dbsg.api.api.stock.domain;
+package kr.co.dbsg.api.api.event.domain;
 
 import java.util.Map;
 import lombok.AllArgsConstructor;

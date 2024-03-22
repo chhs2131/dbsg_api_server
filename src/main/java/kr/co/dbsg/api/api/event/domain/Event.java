@@ -1,9 +1,10 @@
-package kr.co.dbsg.api.api.stock.domain;
+package kr.co.dbsg.api.api.event.domain;
 
 import java.time.LocalDateTime;
-import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
-import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
-import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
+import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
+import kr.co.dbsg.api.api.event.domain.type.EventPrice;
+import kr.co.dbsg.api.api.event.domain.type.EventSchedule;
+import kr.co.dbsg.api.api.event.domain.type.EventStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

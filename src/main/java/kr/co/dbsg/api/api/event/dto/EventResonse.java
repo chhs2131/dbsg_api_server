@@ -1,21 +1,21 @@
-package kr.co.dbsg.api.api.stock.dto;
+package kr.co.dbsg.api.api.event.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import kr.co.dbsg.api.api.stock.domain.CorporationOverview;
-import kr.co.dbsg.api.api.stock.domain.Event;
-import kr.co.dbsg.api.api.stock.domain.Shareholders;
-import kr.co.dbsg.api.api.stock.domain.Underwriters;
-import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
-import kr.co.dbsg.api.api.stock.domain.type.EventSchedule;
-import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
+import kr.co.dbsg.api.api.event.domain.Event;
+import kr.co.dbsg.api.api.event.domain.Shareholders;
+import kr.co.dbsg.api.api.event.domain.Underwriters;
+import kr.co.dbsg.api.api.event.domain.type.EventPrice;
+import kr.co.dbsg.api.api.event.domain.type.EventSchedule;
+import kr.co.dbsg.api.api.event.domain.type.EventStatus;
 import lombok.Builder;
 
-public class EventDto {
+public class EventResonse {
     @Builder
-    public record EventResponse(
+    public record resonse(
         long id,
         String type,
         CorporationOverviewDto corporationOverview,
@@ -24,8 +24,8 @@ public class EventDto {
         LocalDateTime createdAt,
         LocalDateTime updatedAt
     ) {
-        public static EventResponse from(Event event) {
-            return EventResponse.builder()
+        public static resonse from(Event event) {
+            return resonse.builder()
                 .id(event.getId())
                 .type(event.getType())
                 .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))

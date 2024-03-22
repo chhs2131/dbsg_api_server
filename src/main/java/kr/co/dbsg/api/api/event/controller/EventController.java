@@ -1,9 +1,9 @@
-package kr.co.dbsg.api.api.stock.controller;
+package kr.co.dbsg.api.api.event.controller;
 
 import jakarta.validation.Valid;
-import kr.co.dbsg.api.api.stock.dto.EventDto.EventResponse;
-import kr.co.dbsg.api.api.stock.dto.EventRequestDto;
-import kr.co.dbsg.api.api.stock.service.EventService;
+import kr.co.dbsg.api.api.event.dto.EventResonse.resonse;
+import kr.co.dbsg.api.api.event.dto.EventRequest;
+import kr.co.dbsg.api.api.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -23,19 +23,19 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping
-    public ResponseEntity<Page<EventResponse>> getEvents(@ParameterObject @Valid @ModelAttribute EventRequestDto request) {
+    public ResponseEntity<Page<resonse>> getEvents(@ParameterObject @Valid @ModelAttribute EventRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
 
         return ResponseEntity.ok(
                 eventService.getEvents(request.getStartDate(), request.getEndDate(), pageable)
-                .map(EventResponse::from)
+                .map(resonse::from)
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventResponse> getEvent(@PathVariable int id) {
+    public ResponseEntity<resonse> getEvent(@PathVariable int id) {
         return ResponseEntity.ok(
-            EventResponse.from(
+            resonse.from(
                 eventService.getEvent(id)
             )
         );

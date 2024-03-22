@@ -1,4 +1,4 @@
-package kr.co.dbsg.api.api.stock.domain.type;
+package kr.co.dbsg.api.api.event.domain.type;
 
 public record EventPrice(
         int bandLow,

@@ -1,9 +1,9 @@
-package kr.co.dbsg.api.api.stock.entity;
+package kr.co.dbsg.api.api.event.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
-import kr.co.dbsg.api.api.stock.domain.Underwriters;
-import kr.co.dbsg.api.api.stock.domain.type.Underwriter;
+import kr.co.dbsg.api.api.event.domain.Underwriters;
+import kr.co.dbsg.api.api.event.domain.type.Underwriter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

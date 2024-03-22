@@ -1,4 +1,4 @@
-package kr.co.dbsg.api.api.stock.domain.type;
+package kr.co.dbsg.api.api.event.domain.type;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

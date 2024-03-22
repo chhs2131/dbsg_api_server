@@ -1,12 +1,12 @@
-package kr.co.dbsg.api.api.stock.repository;
+package kr.co.dbsg.api.api.event.repository;
 
-import static kr.co.dbsg.api.api.stock.entity.QEventEntity.eventEntity;
+import static kr.co.dbsg.api.api.event.entity.QEventEntity.eventEntity;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import kr.co.dbsg.api.api.stock.entity.EventEntity;
+import kr.co.dbsg.api.api.event.entity.EventEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

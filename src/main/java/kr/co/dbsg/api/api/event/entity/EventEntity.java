@@ -1,10 +1,11 @@
-package kr.co.dbsg.api.api.stock.entity;
+package kr.co.dbsg.api.api.event.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import kr.co.dbsg.api.api.stock.domain.Event;
-import kr.co.dbsg.api.api.stock.domain.type.EventStatus;
+import kr.co.dbsg.api.api.event.domain.Event;
+import kr.co.dbsg.api.api.event.domain.type.EventStatus;
+import kr.co.dbsg.api.api.stock.entity.StockEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

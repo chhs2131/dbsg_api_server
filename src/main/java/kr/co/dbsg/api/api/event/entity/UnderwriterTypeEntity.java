@@ -1,4 +1,4 @@
-package kr.co.dbsg.api.api.stock.entity;
+package kr.co.dbsg.api.api.event.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

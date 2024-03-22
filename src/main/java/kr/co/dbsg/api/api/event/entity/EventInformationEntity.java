@@ -1,7 +1,7 @@
-package kr.co.dbsg.api.api.stock.entity;
+package kr.co.dbsg.api.api.event.entity;
 
 import jakarta.persistence.*;
-import kr.co.dbsg.api.api.stock.domain.type.EventPrice;
+import kr.co.dbsg.api.api.event.domain.type.EventPrice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

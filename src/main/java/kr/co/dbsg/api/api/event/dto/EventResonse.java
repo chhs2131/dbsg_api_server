@@ -9,7 +9,7 @@ import kr.co.dbsg.api.api.event.domain.Event;
 import kr.co.dbsg.api.api.event.domain.Shareholders;
 import kr.co.dbsg.api.api.event.domain.Underwriters;
 import kr.co.dbsg.api.api.event.domain.type.EventPrice;
-import kr.co.dbsg.api.api.event.domain.type.EventSchedule;
+import kr.co.dbsg.api.api.event.domain.EventSchedule;
 import kr.co.dbsg.api.api.event.domain.type.EventStatus;
 import lombok.Builder;
 
@@ -30,9 +30,9 @@ public class EventResonse {
                 .type(event.getType())
                 .corporationOverview(CorporationOverviewDto.from(event.getCorporationOverview()))
                 .eventInformation(EventInformationDto.from(
-                    event.getEventStatus(),
-                    event.getEventSchedule(),
-                    event.getEventPrice(),
+                    event.getStatus(),
+                    event.getSchedule(),
+                    event.getPriceInformation(),
                     event.getUnderwriters(),
                     event.getShareholders()
                 ))
@@ -97,11 +97,11 @@ public class EventResonse {
             return new EventScheduleDto(
                     schedule.getForecastStart(),
                     schedule.getForecastEnd(),
-                    schedule.getSubscriptionStartDate(),
-                    schedule.getSubscriptionEndDate(),
+                    schedule.getSubscriptionStart(),
+                    schedule.getSubscriptionEnd(),
                     schedule.getRefund(),
                     schedule.getDebut(),
-                    schedule.getEventCancelDate()
+                    schedule.getEventCancel()
             );
         }
     }

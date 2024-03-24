@@ -44,7 +44,7 @@ public class EventResonse {
     }
 
     /* 기업 개요 */
-    public record CorporationOverviewDto(String name, String code, String corporationType, String marketType, SectorDto sectorDto) {
+    public record CorporationOverviewDto(String name, String code, String corporationType, String marketType, SectorDto sector) {
         public static CorporationOverviewDto from(CorporationOverview corporationOverview) {
             return new CorporationOverviewDto(
                     corporationOverview.getName(),

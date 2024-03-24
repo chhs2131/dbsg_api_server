@@ -1,9 +1,10 @@
-package kr.co.dbsg.api.api.news.repository;
+package kr.co.dbsg.api.api.news;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import kr.co.dbsg.api.api.news.entity.NewsEntity;
+import kr.co.dbsg.api.api.news.repository.NewsRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

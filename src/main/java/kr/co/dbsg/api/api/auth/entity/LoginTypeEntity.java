@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,8 +19,7 @@ public class LoginTypeEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Size(max = 1)
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled", nullable = false, length = 1)
     private String enabled;
 
     @Column(name = "updated_at")

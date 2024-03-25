@@ -4,21 +4,20 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.event.domain.Event;
 import kr.co.dbsg.api.api.stock.entity.StockEntity;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "event")
-@ToString
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +30,6 @@ public class EventEntity {
 
     @Column(name = "event_type", nullable = false)
     private String eventType;
-
-    @Deprecated(since = "2024-01-26")
-    @Column(name = "status", nullable = false)
-    private String status;
 
     @OneToOne(mappedBy = "event")
     private EventScheduleEntity eventSchedule;

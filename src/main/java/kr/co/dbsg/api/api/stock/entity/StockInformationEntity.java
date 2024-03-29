@@ -9,7 +9,7 @@ import lombok.Getter;
 public class StockInformationEntity {
     @Id
     @Column(name = "stock_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @MapsId
     @OneToOne

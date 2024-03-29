@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class EventCancelEntity {
     @Id
     @Column(name = "event_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @MapsId
     @OneToOne

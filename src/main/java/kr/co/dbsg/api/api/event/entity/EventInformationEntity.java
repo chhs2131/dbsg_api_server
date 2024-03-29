@@ -16,7 +16,7 @@ import lombok.ToString;
 public class EventInformationEntity {
     @Id
     @Column(name = "event_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @MapsId
     @OneToOne

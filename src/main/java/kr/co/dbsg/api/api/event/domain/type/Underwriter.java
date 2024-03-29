@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Underwriter {
-    private final int id;
+    private final Long id;
     private final String name;
     private final long amount;
     private final long limit;

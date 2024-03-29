@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class CorporationOverview {
-    private final int id;
+    private final Long id;
     private final String name;
     private final String code;
     private final CorporationType corporationType;

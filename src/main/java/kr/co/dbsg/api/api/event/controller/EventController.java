@@ -1,8 +1,9 @@
 package kr.co.dbsg.api.api.event.controller;
 
 import jakarta.validation.Valid;
-import kr.co.dbsg.api.api.event.dto.EventResonse.response;
+import kr.co.dbsg.api.api.event.dto.EventDetailResonse.response;
 import kr.co.dbsg.api.api.event.dto.EventRequest;
+import kr.co.dbsg.api.api.event.dto.EventResponse;
 import kr.co.dbsg.api.api.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -23,12 +24,18 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping
-    public ResponseEntity<Page<response>> getEvents(@ParameterObject @Valid @ModelAttribute EventRequest request) {
+    public ResponseEntity<Page<EventResponse>> getEvents(@ParameterObject @Valid @ModelAttribute EventRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
 
         return ResponseEntity.ok(
                 eventService.getEvents(request.getStartDate(), request.getEndDate(), pageable)
-                .map(response::from)
+                .map((a) -> {
+                    final EventResponse from = EventResponse.from(a);
+                    System.out.println(from);
+
+                    return from;
+                })
+//                .map(EventResponse::from)
         );
     }
 

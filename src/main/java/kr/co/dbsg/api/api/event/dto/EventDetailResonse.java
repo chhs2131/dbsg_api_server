@@ -13,7 +13,7 @@ import kr.co.dbsg.api.api.event.domain.EventSchedule;
 import kr.co.dbsg.api.api.event.domain.type.EventStatus;
 import lombok.Builder;
 
-public class EventResonse {
+public class EventDetailResonse {
     @Builder
     public record response(
         long id,
@@ -44,7 +44,7 @@ public class EventResonse {
     }
 
     /* 기업 개요 */
-    public record CorporationOverviewDto(String name, String code, String corporationType, String marketType, SectorDto sector) {
+    private record CorporationOverviewDto(String name, String code, String corporationType, String marketType, SectorDto sector) {
         public static CorporationOverviewDto from(CorporationOverview corporationOverview) {
             return new CorporationOverviewDto(
                     corporationOverview.getName(),
@@ -56,11 +56,11 @@ public class EventResonse {
         }
     }
 
-    public record SectorDto(String id, String name) {
+    private record SectorDto(String id, String name) {
     }
 
     /* 이벤트 정보 */
-    public record EventInformationDto(
+    private record EventInformationDto(
         String status,
         EventScheduleDto schedule,
         EventPriceDto price,
@@ -84,7 +84,7 @@ public class EventResonse {
         }
     }
 
-    public record EventScheduleDto(
+    private record EventScheduleDto(
             LocalDate forecastStart,
             LocalDate forecastEnd,
             LocalDate subscriptionStart,
@@ -106,7 +106,7 @@ public class EventResonse {
         }
     }
 
-    public record EventPriceDto(
+    private record EventPriceDto(
                                   Integer bandLow,
                                   Integer bandHigh,
                                   Integer fixed
@@ -120,8 +120,8 @@ public class EventResonse {
         }
     }
 
-    public record EventUnderwriterDto(
-            int id,
+    private record EventUnderwriterDto(
+            Long id,
             String name,
             long amount,
             long limit,
@@ -137,11 +137,12 @@ public class EventResonse {
                             underwriter.getLimit(),
                             underwriter.getNote()
                     ))
+                    .sorted((a1, a2) -> -Math.toIntExact(a1.amount - a2.amount))
                     .toList();
         }
     }
 
-    public record ShareholderDto(
+    private record ShareholderDto(
             String name,
             long amount
     ) {
@@ -156,7 +157,7 @@ public class EventResonse {
     }
 
     /* 재정 정보 */
-    public record FinancialInformationDto(
+    private record FinancialInformationDto(
             long revenue,
             long profit,
             long capital

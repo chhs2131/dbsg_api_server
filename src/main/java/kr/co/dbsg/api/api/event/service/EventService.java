@@ -24,7 +24,7 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public Event getEvent(int id) {
+    public Event getEvent(long id) {
         return eventRepository.findById(id)
             .orElseThrow(IllegalArgumentException::new)
             .toEvent();

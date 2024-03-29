@@ -1,12 +1,8 @@
 package kr.co.dbsg.api.api.news.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Arrays;
 import kr.co.dbsg.api.api.news.entity.NewsEntity;
 import kr.co.dbsg.api.global.config.properties.NaverApiProperty;
 import kr.co.dbsg.api.global.util.HtmlCharEntityConverter;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Primary
@@ -77,23 +72,21 @@ public class NaverNewsRepository implements NewsRepository {
         return HtmlCharEntityConverter.unescape(str);
     }
 
-    @Data
-    @NoArgsConstructor
-    private static class NaverNews {
-        private String lastBuildDate;
-        private int total;
-        private int start;
-        private int display;
-        private List<NaverArticle> items;
+    private record NaverNews (
+        String lastBuildDate,
+        int total,
+        int start,
+        int display,
+        List<NaverArticle> items
+    ) {
     }
 
-    @Data
-    @NoArgsConstructor
-    private static class NaverArticle {
-        private String title;
-        private String originallink;
-        private String link;
-        private String description;
-        private String pubDate;
+    private record NaverArticle(
+        String title,
+        String originallink,
+        String link,
+        String description,
+        String pubDate
+    ) {
     }
 }

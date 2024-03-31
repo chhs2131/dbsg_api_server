@@ -12,6 +12,7 @@ import kr.co.dbsg.api.api.event.domain.type.EventPrice;
 import kr.co.dbsg.api.api.event.domain.EventSchedule;
 import kr.co.dbsg.api.api.event.domain.type.EventStatus;
 import lombok.Builder;
+import org.springframework.util.Assert;
 
 public class EventDetailResonse {
     @Builder
@@ -25,6 +26,8 @@ public class EventDetailResonse {
         LocalDateTime updatedAt
     ) {
         public static response from(Event event) {
+            Assert.notNull(event, "500 SERVER ERROR");
+
             return response.builder()
                 .id(event.getId())
                 .type(event.getType())
@@ -75,11 +78,11 @@ public class EventDetailResonse {
                 Shareholders shareholders
         ) {
             return new EventInformationDto(
-                    eventStatus.name(),
+                    eventStatus != null ? eventStatus.toString() : "",
                     EventScheduleDto.from(eventSchedule),
                     EventPriceDto.from(eventPrice),
                     EventUnderwriterDto.from(underwriters),
-                    null
+                    ShareholderDto.from(shareholders)
             );
         }
     }
@@ -94,6 +97,10 @@ public class EventDetailResonse {
             LocalDate eventCancel
     ) {
         public static EventScheduleDto from(EventSchedule schedule) {
+            if (schedule == null) {
+                return null;
+            }
+
             return new EventScheduleDto(
                     schedule.getForecastStart(),
                     schedule.getForecastEnd(),
@@ -112,6 +119,10 @@ public class EventDetailResonse {
                                   Integer fixed
     ) {
         public static EventPriceDto from(EventPrice eventPrice) {
+            if (eventPrice == null) {
+                return null;
+            }
+
             return new EventPriceDto(
                     eventPrice.bandLow(),
                     eventPrice.bandHigh(),
@@ -128,6 +139,10 @@ public class EventDetailResonse {
             String note
     ) {
         public static List<EventUnderwriterDto> from(Underwriters underwriters) {
+            if (underwriters == null) {
+                return null;
+            }
+
             return underwriters.getUnderwriterList()
                     .stream()
                     .map(underwriter -> new EventUnderwriterDto(
@@ -147,6 +162,10 @@ public class EventDetailResonse {
             long amount
     ) {
         public static List<ShareholderDto> from(Shareholders shareholders) {
+            if (shareholders == null) {
+                return null;
+            }
+
             final Map<String, Long> shareholdersMap = shareholders.getShareholderMap();
 
             return shareholdersMap.entrySet()

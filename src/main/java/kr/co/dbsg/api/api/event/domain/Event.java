@@ -11,7 +11,6 @@ public class Event {
     private final long id;
     private final String type;
     private final CorporationOverview corporationOverview;
-    private final EventStatus status;
     private final EventSchedule schedule;
     private final EventPrice priceInformation;
     private final Underwriters underwriters;
@@ -33,7 +32,12 @@ public class Event {
         this.shareholders = shareholders;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
 
-        this.status = schedule.getStatus();
+    public EventStatus getStatus() {
+        if (schedule == null) {
+            return null;
+        }
+        return schedule.getStatus();
     }
 }

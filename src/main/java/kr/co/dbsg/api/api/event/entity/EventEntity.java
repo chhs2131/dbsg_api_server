@@ -8,7 +8,6 @@ import kr.co.dbsg.api.api.event.domain.EventSchedule;
 import kr.co.dbsg.api.api.event.domain.Underwriters;
 import kr.co.dbsg.api.api.event.domain.type.EventPrice;
 import kr.co.dbsg.api.api.stock.entity.StockEntity;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

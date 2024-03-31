@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Jwts.SIG;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.sql.Date;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtProvider {
-//    private final SecretKey key = Jwts.SIG.HS256.key().build();
     private final SecretKey key;
 
     public JwtProvider() {
@@ -57,10 +55,10 @@ public class JwtProvider {
             final Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(compactJws);
 
             // 유효시간도 확인
+
+            // return
             return Long.parseLong(claimsJws.getPayload().get("uid").toString());
         } catch (JwtException e) {
-            System.out.println("no ni " + e.getMessage());
-
             // TODO 미인증 사용자 에러에 대한 처리 !!
             throw new AuthenticationException();
         }

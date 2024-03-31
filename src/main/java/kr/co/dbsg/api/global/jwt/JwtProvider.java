@@ -1,7 +1,12 @@
 package kr.co.dbsg.api.global.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Jwts.SIG;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.crypto.SecretKey;
@@ -9,8 +14,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtProvider {
+//    private final SecretKey key = Jwts.SIG.HS256.key().build();
+    private final SecretKey key;
 
-    private final SecretKey key = Jwts.SIG.HS256.key().build();
+    public JwtProvider() {
+        // TODO SECRET KEY property로 빼기
+        final byte[] keyBytes = Decoders.BASE64.decode("das7f6asd76fvh7826v3923a78f6vh982a36vf872h93a6h98a2376h");
+        key = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     public String create(String userLoginType, long userId) {
         return Jwts.builder()
@@ -29,12 +40,29 @@ public class JwtProvider {
             .compact();
     }
 
-    public void verify(String compactJws) {
+    public Long verify(String compactJws) {
         try {
-            Jwts.parser().verifyWith(key).build().parseSignedClaims(compactJws);
-            //TODO OK, we can trust this JWT
+            // null 체크
+            if (compactJws == null) {
+                throw new JwtException("토큰은 null일 수 없습니다.");
+            }
+
+            // bearer 체크
+            if (!compactJws.startsWith("bearer ")) {
+                throw new JwtException("Bearer 토큰이 아닙니다.");
+            }
+            compactJws = compactJws.substring("bearer ".length());
+
+            // jwt 검증
+            final Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(compactJws);
+
+            // 유효시간도 확인
+            return Long.parseLong(claimsJws.getPayload().get("uid").toString());
         } catch (JwtException e) {
-            //TODO don't trust the JWT!
+            System.out.println("no ni " + e.getMessage());
+
+            // TODO 미인증 사용자 에러에 대한 처리 !!
+            throw new AuthenticationException();
         }
     }
 }

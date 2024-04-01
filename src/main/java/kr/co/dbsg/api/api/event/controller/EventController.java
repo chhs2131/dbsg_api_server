@@ -41,7 +41,6 @@ public class EventController {
 
     @GetMapping("/{id}")
     public ResponseEntity<response> getEvent(@PathVariable long id) {
-        // TODO 400 NotFound 처리
         return ResponseEntity.ok(
             response.from(
                 eventService.getEvent(id)
@@ -52,16 +51,12 @@ public class EventController {
     @PostMapping("/{id}/like")
     public void likeEvent(@PathVariable long id, HttpServletRequest request) {
         MemberEntity member = (MemberEntity) request.getAttribute("member");  // <- 더럽지 않게 관리하는 방법? security 유저 객체 처럼. argument resolver 사용
-
-        // TODO eventId가 실제로 존재하는지 유효성 검증
         likeService.likeEvent(member.getId(), id);
     }
 
     @DeleteMapping("/{id}/like")
     public void deleteLikeEvent(@PathVariable long id, HttpServletRequest request) {
         MemberEntity member = (MemberEntity) request.getAttribute("member");  // <- 더럽지 않게 관리하는 방법? security 유저 객체 처럼
-
-        // TODO eventId가 실제로 존재하는지 유효성 검증
         likeService.deleteLikeEvent(member.getId(), id);
     }
 }

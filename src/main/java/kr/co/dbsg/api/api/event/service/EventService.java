@@ -3,6 +3,7 @@ package kr.co.dbsg.api.api.event.service;
 import java.time.LocalDate;
 import kr.co.dbsg.api.api.event.domain.Event;
 import kr.co.dbsg.api.api.event.entity.EventEntity;
+import kr.co.dbsg.api.api.event.exception.EventNotFoundException;
 import kr.co.dbsg.api.api.event.repository.EventRepository;
 import kr.co.dbsg.api.api.event.repository.EventRepositoryImpl;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class EventService {
     @Transactional(readOnly = true)
     public Event getEvent(long id) {
         return eventRepository.findById(id)
-            .orElseThrow(IllegalArgumentException::new)
+            .orElseThrow(EventNotFoundException::new)
             .toEvent();
     }
 }

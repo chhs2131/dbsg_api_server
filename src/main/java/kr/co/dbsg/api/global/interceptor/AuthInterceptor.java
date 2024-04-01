@@ -2,6 +2,10 @@ package kr.co.dbsg.api.global.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
+import kr.co.dbsg.api.api.member.entity.MemberEntity;
+import kr.co.dbsg.api.api.member.repository.MemberRepository;
 import kr.co.dbsg.api.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,15 +15,22 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
     private final JwtProvider jwtProvider;
+    private final MemberRepository memberRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         final String authorization = request.getHeader("Authorization");
         final Long userId = jwtProvider.verify(authorization);
 
-        // TODO 사용자 검증 작업 (실제 디비에 있나요?)
+        final Optional<MemberEntity> memberEntity = memberRepository.findById(userId);
+        if (memberEntity.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
 
-        request.setAttribute("userId", userId);
+        request.setAttribute("member", memberEntity.get());
         return true;
     }
+
+
 }

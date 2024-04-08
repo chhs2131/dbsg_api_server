@@ -2,9 +2,11 @@ package kr.co.dbsg.api.api.auth.repository;
 
 import kr.co.dbsg.api.api.auth.dto.KakaoToken;
 import kr.co.dbsg.api.api.auth.dto.KakaoUser;
+import kr.co.dbsg.api.api.auth.exception.OauthClientException;
 import kr.co.dbsg.api.global.config.properties.KakaoApiProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,9 @@ public class KakaoOauthRepository {
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(map)
             .retrieve()
+            .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                throw new OauthClientException(response.getStatusText() + " => " + new String(response.getBody().readAllBytes()));
+            })
             .toEntity(KakaoToken.class)
             .getBody();
     }

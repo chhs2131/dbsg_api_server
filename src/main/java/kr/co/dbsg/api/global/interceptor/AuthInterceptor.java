@@ -22,15 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         final String authorization = request.getHeader("Authorization");
         final Long userId = jwtProvider.verify(authorization);
 
-        final Optional<MemberEntity> memberEntity = memberRepository.findById(userId);
-        if (memberEntity.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return false;
-        }
-
-        request.setAttribute("member", memberEntity.get());
+        request.setAttribute("userId", userId);
         return true;
     }
-
-
 }

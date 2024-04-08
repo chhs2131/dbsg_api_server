@@ -1,6 +1,5 @@
 package kr.co.dbsg.api.api.event.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import kr.co.dbsg.api.api.event.dto.EventDetailResonse.response;
 import kr.co.dbsg.api.api.event.dto.EventRequest;
@@ -8,6 +7,7 @@ import kr.co.dbsg.api.api.event.dto.EventResponse;
 import kr.co.dbsg.api.api.event.service.EventService;
 import kr.co.dbsg.api.api.like.LikeService;
 import kr.co.dbsg.api.api.member.entity.MemberEntity;
+import kr.co.dbsg.api.global.resolver.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -49,14 +49,12 @@ public class EventController {
     }
 
     @PostMapping("/{id}/like")
-    public void likeEvent(@PathVariable long id, HttpServletRequest request) {
-        MemberEntity member = (MemberEntity) request.getAttribute("member");  // <- 더럽지 않게 관리하는 방법? security 유저 객체 처럼. argument resolver 사용
+    public void likeEvent(@PathVariable long id, @LoginUser MemberEntity member) {
         likeService.likeEvent(member.getId(), id);
     }
 
     @DeleteMapping("/{id}/like")
-    public void deleteLikeEvent(@PathVariable long id, HttpServletRequest request) {
-        MemberEntity member = (MemberEntity) request.getAttribute("member");  // <- 더럽지 않게 관리하는 방법? security 유저 객체 처럼
+    public void deleteLikeEvent(@PathVariable long id, @LoginUser MemberEntity member) {
         likeService.deleteLikeEvent(member.getId(), id);
     }
 }

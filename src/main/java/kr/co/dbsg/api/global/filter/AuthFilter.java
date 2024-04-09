@@ -42,7 +42,7 @@ public class AuthFilter implements Filter {
         }
 
         // 패턴에 해당할때는 반드시 bearer 토큰이 함께 잇을 것
-        if (authorizationHeader != null && authorizationHeader.matches("^bearer .*")) {
+        if (authorizationHeader != null && authorizationHeader.matches("^Bearer .*")) {
             return true;
         }
 

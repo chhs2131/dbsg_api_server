@@ -46,10 +46,10 @@ public class JwtProvider {
             }
 
             // bearer 체크
-            if (!compactJws.startsWith("bearer ")) {
+            if (!compactJws.startsWith("Bearer ")) {
                 throw new JwtException("Bearer 토큰이 아닙니다.");
             }
-            compactJws = compactJws.substring("bearer ".length());
+            compactJws = compactJws.substring("Bearer ".length());
 
             // jwt 검증
             final Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(compactJws);

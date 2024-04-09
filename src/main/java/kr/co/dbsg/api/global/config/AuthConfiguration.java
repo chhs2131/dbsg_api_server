@@ -5,20 +5,21 @@ import kr.co.dbsg.api.global.filter.AuthFilter;
 import kr.co.dbsg.api.global.interceptor.AuthInterceptor;
 import kr.co.dbsg.api.global.resolver.AuthResolver;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.webmvc.ui.SwaggerIndexTransformer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-@EnableWebMvc
 @Configuration
 @RequiredArgsConstructor
 public class AuthConfiguration extends WebMvcConfigurationSupport {
     private final AuthInterceptor authInterceptor;
     private final AuthResolver authResolver;
+    private final SwaggerIndexTransformer swaggerIndexTransformer;
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
@@ -40,5 +41,13 @@ public class AuthConfiguration extends WebMvcConfigurationSupport {
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         super.addArgumentResolvers(argumentResolvers);
         argumentResolvers.add(authResolver);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui*/**")
+            .addResourceLocations("classpath:/META-INF/resources/webjars/")
+            .resourceChain(false)
+            .addTransformer(swaggerIndexTransformer);
     }
 }

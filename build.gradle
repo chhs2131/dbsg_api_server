@@ -34,7 +34,7 @@ dependencies {
 
     // database
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    compileOnly("com.h2database:h2")  // runtime only인 경우 JVM 메모리 위에 올라가 외부에서 접근을 못함
+    runtimeOnly("com.h2database:h2")  // runtime only인 경우 JVM 메모리 위에 올라가 외부에서 접근을 못함
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.mysql:mysql-connector-j")
 

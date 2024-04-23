@@ -11,12 +11,13 @@ import kr.co.dbsg.api.api.auth.repository.MemberPermissionRepository;
 import kr.co.dbsg.api.api.member.entity.MemberEntity;
 import kr.co.dbsg.api.api.member.repository.MemberRepository;
 import kr.co.dbsg.api.global.jwt.JwtAuthenticationService;
+import kr.co.dbsg.api.global.util.RandomNameMaker;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AuthService {
+public class KakaoLoginService {
     private static final String KAKAO_OAUTH_TYPE = "OAUTH_KAKAO";
 
     private final JwtAuthenticationService jwtService;
@@ -25,9 +26,13 @@ public class AuthService {
     private final LoginTypeRepository loginTypeRepository;
     private final MemberPermissionRepository memberPermissionRepository;
 
-    public UserTokenResponse kakaoLogin(final String authCode) {
+    public UserTokenResponse loginWebPage(final String authCode) {
         final KakaoToken entity = kakaoOauthRepository.getKakaoToken(authCode);
-        final KakaoUser kakaoUser = kakaoOauthRepository.getKakaoUser(entity.getAccess_token());
+        return login(entity.getAccess_token());
+    }
+
+    public UserTokenResponse login(final String accessToken) {
+        final KakaoUser kakaoUser = kakaoOauthRepository.getKakaoUser(accessToken);
 
         final MemberEntity memberEntity = getMemberOrCreate(kakaoUser);
         return jwtService.login(memberEntity.getId());
@@ -42,7 +47,7 @@ public class AuthService {
         final LoginTypeEntity loginType = loginTypeRepository.getByName(KAKAO_OAUTH_TYPE);
         final MemberPermissionEntity permission = memberPermissionRepository.getByName("USER");
         final MemberEntity newMember = new MemberEntity(
-            "RANDOM_NAME",
+            RandomNameMaker.generate(),
             permission,
             loginType,
             kakaoUser.getId().toString()

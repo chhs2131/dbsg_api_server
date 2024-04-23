@@ -6,7 +6,7 @@ import kr.co.dbsg.api.api.event.dto.EventRequest;
 import kr.co.dbsg.api.api.event.dto.EventResponse;
 import kr.co.dbsg.api.api.event.service.EventService;
 import kr.co.dbsg.api.api.like.LikeService;
-import kr.co.dbsg.api.api.member.entity.MemberEntity;
+import kr.co.dbsg.api.api.member.domain.Member;
 import kr.co.dbsg.api.global.resolver.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -49,12 +49,12 @@ public class EventController {
     }
 
     @PostMapping("/{id}/like")
-    public void likeEvent(@PathVariable long id, @LoginUser MemberEntity member) {
+    public void likeEvent(@PathVariable long id, @LoginUser Member member) {
         likeService.likeEvent(member.getId(), id);
     }
 
     @DeleteMapping("/{id}/like")
-    public void deleteLikeEvent(@PathVariable long id, @LoginUser MemberEntity member) {
+    public void deleteLikeEvent(@PathVariable long id, @LoginUser Member member) {
         likeService.deleteLikeEvent(member.getId(), id);
     }
 }

@@ -1,6 +1,6 @@
 package kr.co.dbsg.api.api.member.service;
 
-import kr.co.dbsg.api.api.member.dto.MemberResponse;
+import kr.co.dbsg.api.api.member.domain.Member;
 import kr.co.dbsg.api.api.member.entity.MemberEntity;
 import kr.co.dbsg.api.api.member.exception.MemberNotFoundException;
 import kr.co.dbsg.api.api.member.repository.MemberRepository;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public MemberResponse findMember(long userId) {
+    public Member findMember(long userId) {
         final MemberEntity memberEntity = memberRepository.findById(userId)
             .orElseThrow(MemberNotFoundException::new);
 
-        return new MemberResponse(memberEntity.getId(), memberEntity.getName());
+        return new Member(memberEntity.getId(), memberEntity.getName());
     }
 }

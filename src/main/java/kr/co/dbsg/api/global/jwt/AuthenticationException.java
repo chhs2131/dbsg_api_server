@@ -4,11 +4,11 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class AuthenticationException extends RuntimeException {
-    AuthenticationException(String message) {
+    public AuthenticationException(String message) {
         super(message);
     }
 
-    AuthenticationException(String message, Throwable cause) {
+    public AuthenticationException(String message, Throwable cause) {
         super(message, cause);
     }
 }

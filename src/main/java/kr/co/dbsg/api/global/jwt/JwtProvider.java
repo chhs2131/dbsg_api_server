@@ -27,7 +27,7 @@ public class JwtProvider {
     }
 
     public String create(long userId) {
-        Date exp = getExpireDate(jwtProperty.expiration());
+        Date exp = createExpireDate(jwtProperty.expiration());
 
         return Jwts.builder()
             .issuer(jwtProperty.issuer())
@@ -37,7 +37,7 @@ public class JwtProvider {
             .compact();
     }
 
-    private Date getExpireDate(long expireSecond) {
+    private Date createExpireDate(long expireSecond) {
         final long expireMilli = expireSecond * 1000;
         return new Date(System.currentTimeMillis() + expireMilli);
     }

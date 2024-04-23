@@ -51,7 +51,7 @@ public class RandomNameMaker {
         randomNumber = randomNumber < 0 ? randomNumber * -1 : randomNumber;
 
         // 랜덤 닉네임 생성
-        String nickname = company + animal + randomNumber;
+        String nickname = company + " " + animal + randomNumber;
 
         return nickname;
     }

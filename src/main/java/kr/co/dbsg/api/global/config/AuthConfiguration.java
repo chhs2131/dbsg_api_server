@@ -31,6 +31,7 @@ public class AuthConfiguration implements WebMvcConfigurer {
         // ps. 정규식 사용을 위해선 {} 필요 -> https://velog.io/@ksk7584/PathPattern#%EC%84%A4%EB%AA%85
         registry.addInterceptor(authInterceptor)
             .order(1)
+            .addPathPatterns("/v1/members/me")
             .addPathPatterns("/v1/events/{path:[0-9]+}/like");
     }
 

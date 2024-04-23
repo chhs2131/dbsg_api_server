@@ -1,14 +1,12 @@
 package kr.co.dbsg.api.global.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import kr.co.dbsg.api.global.config.properties.JwtProperty;
@@ -29,8 +27,7 @@ public class JwtProvider {
     }
 
     public String create(long userId) {
-        final LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(jwtProperty.expiration());
-        Date exp = Timestamp.valueOf(localDateTime);
+        Date exp = getExpireDate(jwtProperty.expiration());
 
         return Jwts.builder()
             .issuer(jwtProperty.issuer())
@@ -40,20 +37,25 @@ public class JwtProvider {
             .compact();
     }
 
-    public Long verify(String compactJws) {
+    private Date getExpireDate(long expireSecond) {
+        final long expireMilli = expireSecond * 1000;
+        return new Date(System.currentTimeMillis() + expireMilli);
+    }
+
+    public Long verify(@NotNull String compactJws) {
         try {
-            if (compactJws == null) {
-                throw new JwtException("토큰은 null일 수 없습니다.");
-            }
-
-            final Jws<Claims> claimsJws = Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(compactJws);
-
-            return Long.parseLong(claimsJws.getPayload().get("uid").toString());
+            final Claims payload = getClaims(compactJws);
+            return Long.parseLong(payload.get("uid").toString());
         } catch (JwtException e) {
             throw new AuthenticationException(e.getMessage() + " " + compactJws, e.getCause());
         }
+    }
+
+    private Claims getClaims(final String compactJws) {
+        return Jwts.parser()
+            .verifyWith(key)
+            .build()
+            .parseSignedClaims(compactJws)
+            .getPayload();
     }
 }

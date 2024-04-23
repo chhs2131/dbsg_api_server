@@ -1,5 +1,6 @@
 package kr.co.dbsg.api.api.auth.service;
 
+import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.auth.dto.KakaoToken;
 import kr.co.dbsg.api.api.auth.dto.KakaoUser;
 import kr.co.dbsg.api.api.auth.dto.UserTokenResponse;
@@ -10,7 +11,7 @@ import kr.co.dbsg.api.api.auth.repository.LoginTypeRepository;
 import kr.co.dbsg.api.api.auth.repository.MemberPermissionRepository;
 import kr.co.dbsg.api.api.member.entity.MemberEntity;
 import kr.co.dbsg.api.api.member.repository.MemberRepository;
-import kr.co.dbsg.api.global.jwt.JwtAuthenticationService;
+import kr.co.dbsg.api.global.jwt.JwtProvider;
 import kr.co.dbsg.api.global.util.RandomNameMaker;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ import org.springframework.stereotype.Service;
 public class KakaoLoginService {
     private static final String KAKAO_OAUTH_TYPE = "OAUTH_KAKAO";
 
-    private final JwtAuthenticationService jwtService;
+    private final JwtProvider jwtProvider;
+
     private final KakaoOauthRepository kakaoOauthRepository;
     private final MemberRepository memberRepository;
     private final LoginTypeRepository loginTypeRepository;
@@ -34,8 +36,16 @@ public class KakaoLoginService {
     public UserTokenResponse login(final String accessToken) {
         final KakaoUser kakaoUser = kakaoOauthRepository.getKakaoUser(accessToken);
 
-        final MemberEntity memberEntity = getMemberOrCreate(kakaoUser);
-        return jwtService.login(memberEntity.getId());
+        final long userId = getMemberOrCreate(kakaoUser).getId();
+        String jwt = jwtProvider.create(userId);
+
+        return new UserTokenResponse(
+            userId,
+            jwt,
+            "NO_REFRESH_TOKEN",
+            LocalDateTime.now(),  // TODO
+            LocalDateTime.now()
+        );
     }
 
     private MemberEntity getMemberOrCreate(final KakaoUser kakaoUser) {

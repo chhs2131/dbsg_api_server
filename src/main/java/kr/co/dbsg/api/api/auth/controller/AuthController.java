@@ -17,16 +17,15 @@ public class AuthController {
     private final KakaoLoginService authService;
 
     @GetMapping("/kakao/rest")
-    public UserTokenResponse kakaoRestLogin(@RequestParam(value = "authCode") String code) {
-        Assert.notNull(code, "AuthCode는 반드시 필요합니다.");
+    public UserTokenResponse kakaoRestLogin(@RequestParam(value = "code") final String authCode) {
+        Assert.notNull(authCode, "AuthCode는 반드시 필요합니다.");
 
         // TODO 3xx redirect with token
-
-        return authService.loginWebPage(code);
+        return authService.loginWebPage(authCode);
     }
 
     @PostMapping("/kakao/mobile")
-    public UserTokenResponse kakaoMobileLogin(@RequestParam(value = "token") String token) {
+    public UserTokenResponse kakaoMobileLogin(@RequestParam(value = "token") final String token) {
         Assert.notNull(token, "AccessToken은 반드시 필요합니다.");
 
         return authService.login(token);

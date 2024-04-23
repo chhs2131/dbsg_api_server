@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated(since = "없어도 될듯 굳이")
 public class JwtAuthenticationService {
     private final JwtProvider jwtProvider;
 

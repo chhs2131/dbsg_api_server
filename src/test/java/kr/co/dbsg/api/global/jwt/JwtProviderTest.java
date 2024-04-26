@@ -123,7 +123,7 @@ class JwtProviderTest {
     void 토큰검증테스트_null_실패() {
         String token = null;
 
-        assertThrows(AuthenticationException.class, () ->
+        assertThrows(IllegalArgumentException.class, () ->
             // 토큰은 null일 수 없습니다.
             jwtProvider.verify(token)
         );

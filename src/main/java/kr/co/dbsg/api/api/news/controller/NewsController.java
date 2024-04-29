@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/news")
+@RequestMapping("/v1/news")
 @RequiredArgsConstructor
 public class NewsController {
     private final NewsService newsService;

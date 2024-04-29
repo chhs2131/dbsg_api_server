@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomNameMaker {
+    private RandomNameMaker() {}
+
     private static final List<String> COMPANY = Arrays.asList(
         "삼성", "현대", "LG", "SK", "롯데", "CJ", "카카오", "네이버", "쿠팡", "쏘카",
         "GS", "한화", "동부", "포스코", "두산", "롯데그룹", "신세계그룹", "CJ그룹", "SK그룹", "현대그룹",

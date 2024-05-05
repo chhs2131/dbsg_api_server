@@ -4,6 +4,7 @@ import kr.co.dbsg.api.api.member.domain.Member;
 import kr.co.dbsg.api.api.member.dto.MemberResponse;
 import kr.co.dbsg.api.api.member.service.MemberService;
 import kr.co.dbsg.api.global.resolver.LoginUser;
+import kr.co.dbsg.api.global.security.AuthenticationContextHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
+    @LoginUser
     @GetMapping("/me")
-    public MemberResponse me(@LoginUser Member member) {
+    public MemberResponse me() {
+        final Member member = AuthenticationContextHolder.getContext();
         return new MemberResponse(member.getId(), member.getName());
     }
 

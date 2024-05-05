@@ -11,6 +11,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+@Deprecated
 @Component
 @RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {

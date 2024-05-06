@@ -2,6 +2,7 @@ package kr.co.dbsg.api.api.event.entity;
 
 import jakarta.persistence.*;
 import kr.co.dbsg.api.api.event.domain.type.Underwriter;
+import kr.co.dbsg.api.api.underwriter.entity.UnderwriterTypeEntity;
 import lombok.ToString;
 
 @Entity

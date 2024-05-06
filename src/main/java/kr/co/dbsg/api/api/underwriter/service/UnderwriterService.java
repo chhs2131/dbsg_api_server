@@ -1,7 +1,7 @@
 package kr.co.dbsg.api.api.underwriter.service;
 
 import java.util.List;
-import kr.co.dbsg.api.api.event.entity.UnderwriterTypeEntity;
+import kr.co.dbsg.api.api.underwriter.entity.UnderwriterTypeEntity;
 import kr.co.dbsg.api.api.underwriter.repository.UnderwriterTypeEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

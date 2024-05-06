@@ -1,4 +1,4 @@
-package kr.co.dbsg.api.api.event.entity;
+package kr.co.dbsg.api.api.underwriter.entity;
 
 import jakarta.persistence.*;
 

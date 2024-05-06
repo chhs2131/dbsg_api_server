@@ -51,6 +51,10 @@ public class JwtProvider {
         }
     }
 
+    public Date getExpiration(String compactJws) {
+        return getClaims(compactJws).getExpiration();
+    }
+
     private Claims getClaims(final String compactJws) {
         return Jwts.parser()
             .verifyWith(key)

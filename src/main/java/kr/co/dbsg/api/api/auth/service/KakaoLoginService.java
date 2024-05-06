@@ -1,6 +1,5 @@
 package kr.co.dbsg.api.api.auth.service;
 
-import java.time.LocalDateTime;
 import kr.co.dbsg.api.api.auth.dto.KakaoToken;
 import kr.co.dbsg.api.api.auth.dto.KakaoUser;
 import kr.co.dbsg.api.api.auth.dto.UserTokenResponse;
@@ -12,6 +11,7 @@ import kr.co.dbsg.api.api.auth.repository.MemberPermissionRepository;
 import kr.co.dbsg.api.api.member.entity.MemberEntity;
 import kr.co.dbsg.api.api.member.repository.MemberRepository;
 import kr.co.dbsg.api.global.jwt.JwtProvider;
+import kr.co.dbsg.api.global.util.LocalDateTimeUtil;
 import kr.co.dbsg.api.global.util.RandomNameMaker;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,9 +42,9 @@ public class KakaoLoginService {
         return new UserTokenResponse(
             userId,
             jwt,
-            "NO_REFRESH_TOKEN",
-            LocalDateTime.now(),  // TODO
-            LocalDateTime.now()
+            null,
+            LocalDateTimeUtil.from(jwtProvider.getExpiration(jwt)),
+            null
         );
     }
 

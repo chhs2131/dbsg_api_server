@@ -49,6 +49,10 @@
 해당 문서에서는 아래 그림의 `SpringBoot` 에 대해 다룹니다.
 ![image](https://github.com/chhs2131/dbsg_api_server/assets/10378777/3f59356d-f049-4021-8312-d9d62e43b43c)
 
+<br/>
+
+### 🤝 ERD
+![image](https://github.com/chhs2131/dbsg_api_server/assets/10378777/314d87a6-9979-45eb-9526-a41d2ce4fec2)
 
 
 <br/>

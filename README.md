@@ -29,7 +29,7 @@
   - API Document: `springdoc-openapi-ui(Swagger)`
   - etc: `AOP (Transaction, LoggerAspect)`, `RestClient`
 - Database: `MySQL 8.4`
-- ServerComputer: `Google Compute Engine`, `CentOS Linux release 8.4.2105
+- ServerComputer: `Google Compute Engine`, `CentOS Linux release 8.4.2105`
 
 
 **공모주 데이터 크롤링** (비공개)
